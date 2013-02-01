@@ -67,7 +67,7 @@ class CouchDB {
 		$mend = microtime(true);
 
 		//if( $this->profile ) printf("{$bldblu}URL:{$bldylw}$url {$bldblu}µT:{$bldylw}".( $mend - $mstart ).$txtrst."\n");
-		$this->log( "$method $url µT:".( $mend - $mstart ));
+		$this->log( "{$this->host}:{$this->port} $method $url µT:".( $mend - $mstart ));
 
 		list($this->headers, $this->body) = explode("\r\n\r\n", $response);
 

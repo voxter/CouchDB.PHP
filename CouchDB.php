@@ -63,6 +63,7 @@ class CouchDB {
 		$response = "";
 
 		while(!feof($s)) { $response .= fgets($s); }
+		fclose($s);
 
 		$mend = microtime(true);
 

@@ -4,6 +4,10 @@
 
 class CouchDB {
 
+    private $logEnabled = true;
+    private $logfile = '/var/log/couchdb.php.log';
+    private $syslogEnabled = false;
+
 	function CouchDB( $options ) {
 		$this->force_no_decode = false;	
 		$this->debug = false;	
@@ -21,11 +25,17 @@ class CouchDB {
 	}
 
 	function log( $logthis ) {
+        $message = "CouchDB.PHP: {$_SERVER['REMOTE_ADDR']} - ".$logthis;
 		if( $this->debug ) {
 			echo $logthis."\n";
-		} else {
-			@file_put_contents("/var/log/couchdb.php.log",date("Y-m-d H:i:s")." - ".$logthis."\n",FILE_APPEND);
 		}
+        if($this->logEnabled) {
+            file_put_contents($this->logfile, date("[Y-m-d H:i:s] ").$message."\n", FILE_APPEND);
+        }
+        if($this->syslogEnabled) {
+            openlog('CouchDB.PHP', LOG_ODELAY, LOG_LOCAL1);
+            syslog(LOG_INFO, $message);
+        }
 	}
 
 	

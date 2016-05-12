@@ -25,7 +25,7 @@ class CouchDB {
 	}
 
 	function log( $logthis ) {
-        $message = "CouchDB.PHP: {$_SERVER['REMOTE_ADDR']} - ".$logthis;
+        $message = "{$_SERVER['REMOTE_ADDR']} - ".$logthis;
 		if( $this->debug ) {
 			echo $logthis."\n";
 		}
